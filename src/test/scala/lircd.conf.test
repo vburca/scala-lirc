@@ -9,12 +9,12 @@
 #
 # brand: n/a
 # model no. of remote control: n/a
-# devices being controlled by this remote: TaoTronics RGB 5050 Strip Light Kit (TT-SL001)
+# devices being controlled by this remote: Test Device
 #
 
 begin remote
 
-  name  AmbiLite
+  name  Test Remote 1
   bits           16
   flags SPACE_ENC|CONST_LENGTH
   eps            30
@@ -62,7 +62,7 @@ end remote
 
 begin remote
 
-  name  AmbiLite2
+  name  Test Remote 2
   bits           16
   flags SPACE_ENC|CONST_LENGTH
   eps            30
