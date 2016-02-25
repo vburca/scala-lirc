@@ -40,9 +40,9 @@ class ScalaLirc(sourceFile: String = "/etc/lirc/lircd.conf") {
      
   } catch {
     case e: FileNotFoundException => 
-      println(s"LIRC source file $sourceFile was not found!")
+      System.err.println(s"LIRC source file $sourceFile was not found!")
     case e: IOException => 
-      println(s"IOException trying to read LIRC source file $sourceFile", e.printStackTrace)
+      System.err.println(s"IOException trying to read LIRC source file $sourceFile", e.printStackTrace)
   }
 
   val REMOTE_CODES: Map[String, List[String]] = auxRemoteCodes.toMap
@@ -56,16 +56,23 @@ class ScalaLirc(sourceFile: String = "/etc/lirc/lircd.conf") {
 
   def sendOnce(remote: String, code: String): Boolean = {
     if (!supportsRemote(remote)) {
-      println(s"Remote $remote is not a valid device")
+      System.err.println(s"Remote $remote is not a valid device")
       false
     } else if (!supportsCode(remote, code)) {
-      println(s"Remote $remote does not support code $code")
+      System.err.println(s"Remote $remote does not support code $code")
       false
     } else {
-      s"irsend SEND_ONCE $remote $code" ! match {
-        case 0 => true
-        case error if error > 0 => 
-          println(s"Could not run `irsend SEND_ONCE $remote $code`")
+      val command = s"irsend SEND_ONCE $remote $code"
+      try {
+        command ! match {
+          case 0 => true
+          case error if error > 0 => 
+            System.err.println(s"Could not run `$command`")
+            false
+        }
+      } catch {
+        case e: IOException => 
+          System.err.println(s"Error trying to execute `$command`: ${e.getCause}")
           false
       }
     }
