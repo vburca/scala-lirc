@@ -1,7 +1,7 @@
 scala-lirc
 ==========
 
-Simple Scala wrapper for the LIRC library.
+Simple Scala wrapper for the [LIRC library](http://www.lirc.org/).
 
 *Based on its [Python cousin](https://github.com/loisaidasam/lirc-python)*
 
