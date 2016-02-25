@@ -1,17 +1,25 @@
 scala-lirc
 ==========
 
-Simple Scala wrapper for the LIRC library.
+Simple Scala wrapper for the [LIRC library](http://www.lirc.org/).
 
 *Based on its [Python cousin](https://github.com/loisaidasam/lirc-python)*
 
+#### Features
+
+* can send simple one-time messages through `irsend SEND_ONCE`
+* supports multiple remotes in the *lircd.conf*
+
+
 ## Usage
+
+Below is an example of usage.
 
 ```
 scala> import com.firelogs.scalalirc.ScalaLirc
 import com.firelogs.scalalirc.ScalaLirc
 
-scala> val lirc = new ScalaLirc("src/main/scala/lircd.conf.test")
+scala> val lirc = new ScalaLirc()
 lirc: com.firelogs.scalalirc.ScalaLirc = com.firelogs.scalalirc.ScalaLirc@658bbfd8
 
 scala> lirc.devices
@@ -31,6 +39,16 @@ res3: Boolean = false
 scala> lirc.sendOnce("AmbiLite", "BTN_START")   // LIRC is now available
 res4: Boolean = true
 ```
+
+#### Custom location of *lircd.conf*
+If, for some reason, you want to use a custom *lircd.conf*, or the location is not the standard one (`/etc/lirc/lircd.conf`),
+you can create the `ScalaLirc` object in the following way:
+
+```
+val lirc = new ScalaLirc("path/to/your/lircd.conf")
+```
+
+
 
 ## Issues
 
