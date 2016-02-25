@@ -35,26 +35,6 @@ begin remote
           KEY_STOP                 0x40BF
           KEY_BRIGHTNESSUP         0x00FF
           KEY_BRIGHTNESSDOWN       0x807F
-          KEY_R                    0x20DF
-          KEY_G                    0xA05F
-          KEY_B                    0x609F
-          KEY_W                    0xE01F
-          KEY_F1                   0x10EF
-          KEY_F2                   0x906F
-          KEY_F3                   0x50AF
-          KEY_F4                   0x30CF
-          KEY_F5                   0xB04F
-          KEY_F6                   0x708F
-          KEY_F7                   0x08F7
-          KEY_F8                   0x8877
-          KEY_F9                   0x48B7
-          KEY_F10                  0x28D7
-          KEY_F11                  0xA857
-          KEY_F12                  0x6897
-          KEY_FN_F1                0xD02F
-          KEY_FN_F2                0xF00F
-          KEY_FN_F3                0xC837
-          KEY_FN_F4                0xE817
       end codes
 
 end remote

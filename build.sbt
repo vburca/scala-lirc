@@ -10,3 +10,7 @@ scalaVersion := crossScalaVersions.value.last
 
 licenses ++= Seq("MIT" -> url(
   s"https://github.com/vburca/${name.value}/blob/${version.value}/LICENSE"))
+
+libraryDependencies ++= Seq(
+  // "org.scalactic" %% "scalactic" % "2.2.6",
+  "org.scalatest" %% "scalatest" % "2.2.6" % "test")
