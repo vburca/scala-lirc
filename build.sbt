@@ -7,3 +7,6 @@ description := "A simple Scala wrapper on top of LIRC (Linux Infrared Remote Con
 crossScalaVersions := Seq("2.10.4", "2.11.7")
 
 scalaVersion := crossScalaVersions.value.last
+
+licenses ++= Seq("MIT" -> url(
+  s"https://github.com/vburca/${name.value}/blob/${version.value}/LICENSE"))
