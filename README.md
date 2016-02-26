@@ -16,7 +16,7 @@ Simple Scala wrapper for the [LIRC library](http://www.lirc.org/).
 Below is an example of usage.
 
 ```
-scala> import com.firelogs.scalalirc.ScalaLirc
+scala> import scalalirc.ScalaLirc
 import com.firelogs.scalalirc.ScalaLirc
 
 scala> val lirc = new ScalaLirc()

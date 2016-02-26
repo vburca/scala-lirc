@@ -1,4 +1,4 @@
-package com.firelogs.scalalirc
+package scalalirc
 
 import scala.collection.mutable.{Queue => MutableQueue, Map => MutableMap}
 import scala.io.Source
@@ -14,7 +14,6 @@ class ScalaLirc(sourceFile: String = "/etc/lirc/lircd.conf") {
   try {
     val file = Source.fromFile(sourceFile)
     val sourceLines = file.getLines.toList
-    //val cleanedLines = sourceLines.map { _.replace("\t", " ") }
 
     val remoteQueue: MutableQueue[String] = MutableQueue()
     var codes = false 

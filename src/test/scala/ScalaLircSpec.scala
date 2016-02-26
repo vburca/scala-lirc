@@ -1,4 +1,4 @@
-package com.firelogs.scalalirc
+package scalalirc
 
 import org.scalatest.FunSpec
 
