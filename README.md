@@ -17,10 +17,10 @@ Below is an example of usage.
 
 ```
 scala> import scalalirc.ScalaLirc
-import com.firelogs.scalalirc.ScalaLirc
+import scalalirc.ScalaLirc
 
 scala> val lirc = new ScalaLirc()
-lirc: com.firelogs.scalalirc.ScalaLirc = com.firelogs.scalalirc.ScalaLirc@658bbfd8
+lirc: scalalirc.ScalaLirc = scalalirc.ScalaLirc@658bbfd8
 
 scala> lirc.devices
 res0: Iterable[String] = Set(TestRemote1, TestRemote2)
