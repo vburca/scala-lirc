@@ -7,50 +7,14 @@ import sys.process._
 
 import java.io.{FileNotFoundException, IOException}
 
-class ScalaLirc(sourceFile: String = "/etc/lirc/lircd.conf") {
-  
-  val auxRemoteCodes: MutableMap[String, List[String]] = MutableMap()
-
-  try {
-    val file = Source.fromFile(sourceFile)
-    val sourceLines = file.getLines.toList
-
-    val remoteQueue: MutableQueue[String] = MutableQueue()
-    var codes = false 
-
-    sourceLines.foreach { line =>
-      val cleanLine = line.replace("\t", " ").trim
-      cleanLine match {
-        case "begin remote" => remoteQueue.clear
-        case nameLine if cleanLine.indexOf("name") == 0 => 
-          // enqueue the remote name
-          remoteQueue.enqueue(nameLine.split(" ").last)
-        case "begin codes" => codes = true
-        case "end codes" => codes = false
-        case "end remote" =>
-          // move everything to the map
-          auxRemoteCodes += (remoteQueue.dequeue -> remoteQueue.toList)
-        case codeLine if codes == true =>
-          // enqueue the remote code
-          remoteQueue.enqueue(codeLine.split(" ").head)
-        case _ =>
-      }
-    }
-     
-  } catch {
-    case e: FileNotFoundException => 
-      System.err.println(s"LIRC source file $sourceFile was not found!")
-    case e: IOException => 
-      System.err.println(s"IOException trying to read LIRC source file $sourceFile", e.printStackTrace)
-  }
-
+class ScalaLirc private(auxRemoteCodes: MutableMap[String, List[String]]) {
   val REMOTE_CODES: Map[String, List[String]] = auxRemoteCodes.toMap
 
   def devices: Iterable[String] = REMOTE_CODES.keys
   def codesForRemote(remote: String): List[String] = REMOTE_CODES.get(remote).getOrElse(List.empty)
-  def supportsCode(remote: String, code: String): Boolean = 
+  def supportsCode(remote: String, code: String): Boolean =
     codesForRemote(remote).contains(code)
-  def supportsRemote(remote: String): Boolean = 
+  def supportsRemote(remote: String): Boolean =
     REMOTE_CODES.keys.toList.contains(remote)
 
   def sendOnce(remote: String, code: String): Boolean = {
@@ -65,15 +29,61 @@ class ScalaLirc(sourceFile: String = "/etc/lirc/lircd.conf") {
       try {
         command ! match {
           case 0 => true
-          case error if error > 0 => 
+          case error if error > 0 =>
             System.err.println(s"Could not run `$command`")
             false
         }
       } catch {
-        case e: IOException => 
+        case e: IOException =>
           System.err.println(s"Error trying to execute `$command`: ${e.getCause}")
           false
       }
+    }
+  }
+
+}
+
+object ScalaLirc(sourceFile: String = "/etc/lirc/lircd.conf") {
+
+  def apply(sourceFile: String): Option[ScalaLirc] = {
+    try {
+      val file = Source.fromFile(sourceFile)
+      val sourceLines = file.getLines.toList
+
+      val auxRemoteCodes: MutableMap[String, List[String]] = MutableMap()
+      val remoteQueue: MutableQueue[String] = MutableQueue()
+      var codes = false
+
+      sourceLines.foreach { line =>
+        val cleanLine = line.replace("\t", " ").trim
+        cleanLine match {
+          case "begin remote" => remoteQueue.clear
+          case nameLine if cleanLine.indexOf("name") == 0 =>
+            // enqueue the remote name
+            remoteQueue.enqueue(nameLine.split(" ").last)
+          case "begin codes" => codes = true
+          case "end codes" => codes = false
+          case "end remote" =>
+            // move everything to the map
+            auxRemoteCodes += (remoteQueue.dequeue -> remoteQueue.toList)
+          case codeLine if codes == true =>
+            // enqueue the remote code
+            remoteQueue.enqueue(codeLine.split(" ").head)
+          case _ =>
+        }
+      }
+
+      auxRemoteCodes match {
+        case remoteCodes if remoteCodes.size > 0 => Some(new ScalaLirc(remoteCodes))
+        case _ => None
+      }
+    } catch {
+      case e: FileNotFoundException =>
+        System.err.println(s"LIRC source file $sourceFile was not found!")
+        None
+      case e: IOException =>
+        System.err.println(s"IOException trying to read LIRC source file $sourceFile", e.printStackTrace)
+        None
     }
   }
 
