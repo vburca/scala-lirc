@@ -13,8 +13,6 @@ scalaVersion := crossScalaVersions.value.last
 licenses ++= Seq("MIT" -> url(
   s"https://github.com/vburca/${name.value}/blob/${version.value}/LICENSE"))
 
-resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
-
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.2.6" % "test")
 
