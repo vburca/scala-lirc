@@ -15,7 +15,7 @@ class ScalaLircSpec extends FunSpec {
       assert(!lircNotExists.isDefined)
     }
 
-    it ("should graciously fail when conf file is not valid") {
+    it ("should graciously fail when conf file is not a valid lirc conf file") {
       val lircBadFile = ScalaLirc("src/test/scala/ScalaLircSpec.scala")
       assert(!lircBadFile.isDefined)
     }
