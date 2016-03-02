@@ -1,6 +1,8 @@
 scala-lirc
 ==========
 
+[![Build Status](https://travis-ci.org/vburca/scala-lirc.svg?branch=master)](https://travis-ci.org/vburca/scala-lirc)
+
 Simple Scala wrapper for the [LIRC library](http://www.lirc.org/).
 
 *Based on its [Python cousin](https://github.com/loisaidasam/lirc-python)*
@@ -52,7 +54,7 @@ val lirc = new ScalaLirc("path/to/your/lircd.conf")
 
 ## Issues
 
-Right now `scala-lirc` only supports the `SEND_ONCE` feature of LIRC. 
+Right now `scala-lirc` only supports the `SEND_ONCE` feature of LIRC.
 
 If you would also like to see other LIRC features added to `scala-lirc`, or if you find something wrong with the current implementation,
 create a *Pull Request* or [let me know](https://github.com/vburca/scala-lirc/issues/new?title=New%20LIRC%20Feature) please!
