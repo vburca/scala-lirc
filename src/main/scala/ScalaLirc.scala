@@ -43,9 +43,8 @@ class ScalaLirc private(auxRemoteCodes: MutableMap[String, List[String]]) {
 
 }
 
-object ScalaLirc(sourceFile: String = "/etc/lirc/lircd.conf") {
-
-  def apply(sourceFile: String): Option[ScalaLirc] = {
+object ScalaLirc {
+  def apply(sourceFile: String = "/etc/lirc/lircd.conf"): Option[ScalaLirc] = {
     try {
       val file = Source.fromFile(sourceFile)
       val sourceLines = file.getLines.toList
