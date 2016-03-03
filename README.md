@@ -21,24 +21,24 @@ Below is an example of usage.
 scala> import scalalirc.ScalaLirc
 import scalalirc.ScalaLirc
 
-scala> val lirc = new ScalaLirc()
+scala> val lirc = ScalaLirc()
 lirc: scalalirc.ScalaLirc = scalalirc.ScalaLirc@658bbfd8
 
-scala> lirc.devices
+scala> lirc.get.devices
 res0: Iterable[String] = Set(TestRemote1, TestRemote2)
 
-scala> lirc.supportsCode("TestRemote1", "BTN_START")
+scala> lirc.get.supportsCode("TestRemote1", "BTN_START")
 res1: Boolean = true
 
-scala> lirc.sendOnce("TestRemote1", "BTNSTART")
+scala> lirc.get.sendOnce("TestRemote1", "BTNSTART")
 Remote TestRemote1 does not support code BTNSTART
 res2: Boolean = false
 
-scala> lirc.sendOnce("TestRemote1", "BTN_START")    // LIRC is not available on this platform
+scala> lirc.get.sendOnce("TestRemote1", "BTN_START")    // LIRC is not available on this platform
 Error trying to execute `irsend SEND_ONCE TestRemote1 BTN_START`: java.io.IOException: error=2, No such file or directory
 res3: Boolean = false
 
-scala> lirc.sendOnce("AmbiLite", "BTN_START")   // LIRC is now available
+scala> lirc.get.sendOnce("AmbiLite", "BTN_START")   // LIRC is now available
 res4: Boolean = true
 ```
 
@@ -47,7 +47,7 @@ If, for some reason, you want to use a custom *lircd.conf*, or the location is n
 you can create the `ScalaLirc` object in the following way:
 
 ```
-val lirc = new ScalaLirc("path/to/your/lircd.conf")
+val lirc = ScalaLirc("path/to/your/lircd.conf")
 ```
 
 
