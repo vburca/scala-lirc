@@ -12,6 +12,13 @@ Simple Scala wrapper for the [LIRC library](http://www.lirc.org/).
 * can send simple one-time messages through `irsend SEND_ONCE`
 * supports multiple remotes in the *lircd.conf*
 
+## Installation
+Through *sbt*, add the following to your `build.sbt`
+
+```
+resolvers += Resolver.bintrayRepo("vburca", "maven")
+libraryDependencies += "me.owlcode" %% "scala-lirc" % "0.1.1"
+```
 
 ## Usage
 
@@ -49,8 +56,6 @@ you can create the `ScalaLirc` object in the following way:
 ```
 val lirc = ScalaLirc("path/to/your/lircd.conf")
 ```
-
-
 
 ## Issues
 
